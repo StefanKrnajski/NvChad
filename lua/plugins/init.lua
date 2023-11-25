@@ -115,6 +115,38 @@ local default_plugins = {
     end,
   },
 
+  {
+    "ThePrimeagen/harpoon",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    lazy = false,
+  },
+
+  {
+    "sindrets/diffview.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      { "TimUntersberger/neogit" },
+    },
+    keys = {
+      { "<C-g>", "<CMD>DiffviewOpen<CR>", mode = { "n", "i", "v" } }
+    },
+    config = {
+      keymaps = {
+        view = {
+          ["<C-g>"] = "<CMD>DiffviewClose<CR>",
+          ["c"] = "<CMD>DiffviewClose|Neogit commit<CR>",
+        },
+        file_panel = {
+          ["<C-g>"] = "<CMD>DiffviewClose<CR>",
+          ["c"] = "<CMD>DiffviewClose|Neogit commit<CR>",
+        },
+      },
+    },
+    lazy = false,
+  },
+
   -- lsp stuff
   {
     "williamboman/mason.nvim",
@@ -229,7 +261,7 @@ local default_plugins = {
 
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter", { "nvim-telescope/telescope-fzf-native.nvim", build = "make" } },
+    dependencies = { "nvim-treesitter/nvim-treesitter", { "nvim-telescope/telescope-fzf-native.nvim", build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build" }, { "nvim-telescope/telescope-live-grep-args.nvim", version = "^1.0.0" } },
     cmd = "Telescope",
     init = function()
       require("core.utils").load_mappings "telescope"

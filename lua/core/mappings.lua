@@ -33,6 +33,22 @@ M.general = {
     ["<leader>n"] = { "<cmd> set nu! <CR>", "Toggle line number" },
     ["<leader>rn"] = { "<cmd> set rnu! <CR>", "Toggle relative number" },
 
+    -- Navigating through change hunks
+    ["<leader>h"] = { "[c", "Go to the previous change hunk." },
+    ["<leader>j"] = { "]c", "Go to the next change hunk." },
+
+    -- Navigating through and manipulating tabs
+    ["<leader><S-h>"] = { "<cmd> tabp <CR>", "Go to the previous tab." },
+    ["<leader><S-j>"] = { "<cmd> tabn <CR>", "Go to the next tab." },
+    ["<leader>nt"] = { "<cmd> tabnew <CR>", "Create a new tab." },
+    ["<leader>tx"] = { "<cmd> tabclose <CR>", "Close the current tab." },
+
+    -- Harpoon related keybindings
+    ["<leader>hm"] = { "<cmd> lua require(\"harpoon.mark\").add_file() <CR>", "Add file to harpoon." },
+    ["<leader>hh"] = { "<cmd> lua require(\"harpoon.ui\").toggle_quick_menu() <CR>", "Toggle the harpoon quick menu." },
+    ["<leader>h<S-h>"] = { "<cmd> lua require(\"harpoon.ui\").nav_prev() <CR>", "Previous harpoon navigation." },
+    ["<leader>h<S-j>"] = { "<cmd> lua require(\"harpoon.ui\").nav_next() <CR>", "Next harpoon navigation." },
+
     -- Allow moving the cursor through wrapped lines with j, k, <Up> and <Down>
     -- http://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
     -- empty mode is same as using <cmd> :map
@@ -273,10 +289,12 @@ M.telescope = {
     ["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "Find files" },
     ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "Find all" },
     ["<leader>fw"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
+    ["<leader>fg"] = { "<cmd> Telescope live_grep_args <CR>", "Live grep args" },
     ["<leader>fb"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
     ["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "Help page" },
     ["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "Find oldfiles" },
     ["<leader>fz"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "Find in current buffer" },
+    ["<leader>fr"] = { "<cmd> Telescope resume <CR>", "Resume previous query" },
 
     -- git
     ["<leader>cm"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },
@@ -289,6 +307,13 @@ M.telescope = {
     ["<leader>th"] = { "<cmd> Telescope themes <CR>", "Nvchad themes" },
 
     ["<leader>ma"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" },
+  },
+}
+
+M.diffview = {
+  plugin = true,
+
+  n = {
   },
 }
 
@@ -343,13 +368,6 @@ M.nvterm = {
     },
 
     -- new
-    ["<leader>h"] = {
-      function()
-        require("nvterm.terminal").new "horizontal"
-      end,
-      "New horizontal term",
-    },
-
     ["<leader>v"] = {
       function()
         require("nvterm.terminal").new "vertical"
